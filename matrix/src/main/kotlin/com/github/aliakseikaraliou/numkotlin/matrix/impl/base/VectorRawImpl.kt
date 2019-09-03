@@ -2,7 +2,7 @@ package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorRaw
 
 class VectorRawImpl<T> internal constructor(override val list: List<T>) :
     VectorRaw<T>, MatrixImpl<T>(list, 1, list.size) {
@@ -18,8 +18,8 @@ class VectorRawImpl<T> internal constructor(override val list: List<T>) :
 
     override fun get(row: Int, column: Int) = super<VectorRaw>.get(row, column)
 
-    override fun get(column: Int) = when {
-        column < list.size -> list[column]
+    override fun get(i: Int) = when {
+        i < list.size -> list[i]
         else -> throw MatrixIndexOutOfBoundsException()
     }
 

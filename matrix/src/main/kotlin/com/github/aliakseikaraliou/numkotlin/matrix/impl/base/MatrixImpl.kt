@@ -3,9 +3,9 @@ package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.Matrix
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.VectorColumn
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.Matrix
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorRaw
 
 open class MatrixImpl<T> internal constructor(
     internal open val list: List<T>,
@@ -172,6 +172,8 @@ fun <T> matrixOfColumns(columns: List<VectorColumn<T>>): MatrixImpl<T> {
 fun <T> matrixOf(list: List<T>, height: Int, width: Int) = when {
     list.isEmpty() -> throw MatrixEmptyException()
     height * width != list.size -> throw MatrixInvalidSizeException()
+    height == 1 && width == 1 -> singleElementOf(list[0])
     height == 1 -> rawOf(list)
+    width == 1 -> columnOf(list)
     else -> MatrixImpl(list, height, width)
 }

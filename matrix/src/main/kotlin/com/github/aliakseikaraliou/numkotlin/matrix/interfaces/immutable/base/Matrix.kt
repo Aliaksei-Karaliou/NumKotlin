@@ -1,4 +1,4 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base
+package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base
 
 interface Matrix<T> {
     val height: Int

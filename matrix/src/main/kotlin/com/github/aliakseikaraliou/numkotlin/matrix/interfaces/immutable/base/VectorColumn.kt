@@ -1,4 +1,4 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base
+package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 
@@ -12,7 +12,7 @@ interface VectorColumn<T> : Matrix<T> {
         throw MatrixIndexOutOfBoundsException()
     }
 
-    operator fun get(raw: Int): T
+    operator fun get(i: Int): T
 
     override val columns: List<VectorColumn<T>>
         get() = listOf(this)

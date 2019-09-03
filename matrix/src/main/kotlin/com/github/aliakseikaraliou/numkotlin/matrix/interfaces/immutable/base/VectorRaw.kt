@@ -1,4 +1,4 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base
+package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 
@@ -15,5 +15,5 @@ interface VectorRaw<T> : Matrix<T> {
         throw MatrixIndexOutOfBoundsException()
     }
 
-    operator fun get(column: Int): T
+    operator fun get(i: Int): T
 }

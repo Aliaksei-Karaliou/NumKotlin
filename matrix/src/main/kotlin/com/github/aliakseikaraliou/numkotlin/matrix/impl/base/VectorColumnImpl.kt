@@ -2,7 +2,7 @@ package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorColumn
 
 class VectorColumnImpl<T> internal constructor(override val list: List<T>) : VectorColumn<T>,
     MatrixImpl<T>(list, list.size, 1) {
@@ -15,8 +15,8 @@ class VectorColumnImpl<T> internal constructor(override val list: List<T>) : Vec
 
     override fun get(row: Int, column: Int) = super<VectorColumn>.get(row, column)
 
-    override fun get(raw: Int) = when {
-        raw < list.size -> list[raw]
+    override fun get(i: Int) = when {
+        i < list.size -> list[i]
         else -> throw MatrixIndexOutOfBoundsException()
     }
 }
