@@ -4,7 +4,7 @@ import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyExcept
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.mutable.MutableVectorRaw
 
-class MutableVectorRawImpl<T>(override val list: MutableList<T>) :
+class MutableVectorRawImpl<T> internal constructor(override val list: MutableList<T>) :
     MutableVectorRaw<T>, MutableMatrixImpl<T>(list, 1, list.size) {
 
     override val height: Int

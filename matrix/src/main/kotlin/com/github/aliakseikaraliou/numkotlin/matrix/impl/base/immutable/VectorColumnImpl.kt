@@ -15,10 +15,10 @@ class VectorColumnImpl<T> internal constructor(override val list: List<T>) : Vec
     }
 }
 
-fun <T> columnOf(size: Int, creator: (Int) -> T): VectorColumnImpl<T> {
-    val list = ArrayList<T>(size)
+fun <T> columnOf(height: Int, creator: (Int) -> T): VectorColumnImpl<T> {
+    val list = ArrayList<T>(height)
 
-    for (i in 0 until size) {
+    for (i in 0 until height) {
         list.add(creator(i))
     }
 

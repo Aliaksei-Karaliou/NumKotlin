@@ -6,7 +6,8 @@ import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSize
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.*
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -129,6 +130,58 @@ class MutableMatrix {
             }
 
             assertThrows(MatrixEmptyException::class.java) { mutableMatrixOfColumns<Int>(emptyList()) }
+        }
+    }
+
+    @Nested
+    inner class Utils {
+        @Test
+        fun map() {
+            val input = mutableMatrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 100)
+            )
+
+            val actual = input.map { it * it }
+            val expected = mutableMatrixOf(
+                arrayOf(1, 4, 9),
+                arrayOf(4, 9, 10000)
+            )
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun mapIndexed() {
+            val input = mutableMatrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 100)
+            )
+
+            val actual = input.mapIndexed { i, j, value -> (i + j) * value }
+            val expected = mutableMatrixOf(
+                arrayOf(0, 2, 6),
+                arrayOf(2, 6, 300)
+            )
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun transpose() {
+            val input = mutableMatrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 100)
+            )
+
+            val actual = input.transpose()
+            val expected = mutableMatrixOf(
+                arrayOf(1, 2),
+                arrayOf(2, 3),
+                arrayOf(3, 100)
+            )
+
+            assertEquals(expected, actual)
         }
     }
 }

@@ -1,7 +1,8 @@
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
@@ -61,6 +62,61 @@ internal class VectorRaw {
         fun function() {
             val actual = rawOf(3) { it * it }
             val expected = rawOf(0, 1, 4)
+
+            assertEquals(expected, actual)
+        }
+    }
+
+    @Nested
+    inner class Utils {
+        @Test
+        fun map() {
+            val input = rawOf(1, 2, 3, 4)
+
+            val actual = input.map { it * it * it }
+            val expected = rawOf(1, 8, 27, 64)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun mapIndexed() {
+            val input = rawOf(1, 2, 3, 4)
+
+            val actual = input.mapIndexed { i, value -> i * value }
+            val expected = rawOf(0, 2, 6, 12)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun forEachIndexed() {
+            val input = rawOf(1, 2, 3, 4)
+
+            var actual = 0
+            input.forEachIndexed { it, value -> actual += it * value }
+
+            val expected = 20
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun transpose() {
+            val input = rawOf(1, 2, 3, 4)
+
+            val actual = input.transpose()
+            val expected = columnOf(1, 2, 3, 4)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun toMutableVectorRaw() {
+            val input = rawOf(1, 2, 3, 4)
+
+            val actual = input.toMutableVectorRaw()
+            val expected = mutableRawOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
         }

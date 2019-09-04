@@ -2,7 +2,7 @@ package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.mutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableColumnOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
@@ -87,6 +87,51 @@ class MutableVectorColumn {
         fun function() {
             val actual = mutableColumnOf(3) { it * it }
             val expected = mutableColumnOf(0, 1, 4)
+
+            assertEquals(expected, actual)
+        }
+    }
+
+    @Nested
+    inner class Utils {
+        @Test
+        fun map() {
+            val input = mutableColumnOf(1, 2, 3, 4)
+
+            val actual = input.map { it * it * it }
+            val expected = mutableColumnOf(1, 8, 27, 64)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun mapIndexed() {
+            val input = mutableColumnOf(1, 2, 3, 4)
+
+            val actual = input.mapIndexed { i, value -> i * value }
+            val expected = mutableColumnOf(0, 2, 6, 12)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun forEachIndexed() {
+            val input = mutableColumnOf(1, 2, 3, 4)
+
+            var actual = 0
+            input.forEachIndexed { it, value -> actual += it * value }
+
+            val expected = 20
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun transpose() {
+            val input = mutableColumnOf(1, 2, 3, 4)
+
+            val actual = input.transpose()
+            val expected = mutableRawOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
         }
