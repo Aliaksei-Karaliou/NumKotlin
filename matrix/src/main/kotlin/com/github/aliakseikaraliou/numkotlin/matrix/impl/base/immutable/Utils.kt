@@ -1,5 +1,6 @@
 package com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable
 
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOf
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Matrix
 
 fun <T, R> Matrix<T>.map(transform: (T) -> R) = matrixOf(height, width) { i, j -> transform(this[i, j]) }
@@ -23,7 +24,7 @@ fun <T, R> Matrix<T>.forEachIndexed(action: (Int, Int, T) -> R) {
 }
 
 fun <T> Matrix<T>.toList(): List<T> {
-    val list = mutableListOf<T>()
+    val list = ArrayList<T>(height + width)
 
     for (i in 0 until height) {
         for (j in 0 until width) {
@@ -35,3 +36,5 @@ fun <T> Matrix<T>.toList(): List<T> {
 }
 
 fun <T> Matrix<T>.transpose() = matrixOf(height = width, width = height) { i, j -> this[j, i] }
+
+fun <T> Matrix<T>.toMutableMatrix() = mutableMatrixOf(height = height, width = width) { i, j -> this[i, j] }

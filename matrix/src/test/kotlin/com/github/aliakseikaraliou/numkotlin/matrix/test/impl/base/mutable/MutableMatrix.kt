@@ -1,5 +1,3 @@
-@file:Suppress("USELESS_IS_CHECK")
-
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.mutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
@@ -23,7 +21,6 @@ class MutableMatrix {
 
             val expected = mutableMatrixOf(arrayOf(100, 2, 3), arrayOf(2, 3, 4))
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
 
             assertThrows(MatrixIndexOutOfBoundsException::class.java) {
@@ -61,7 +58,6 @@ class MutableMatrix {
                 mutableListOf(0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5), 3, 4
             )
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
         }
 
@@ -71,7 +67,6 @@ class MutableMatrix {
             val expected =
                 mutableMatrixOf(mutableListOf(1, 2, 3, 2, 3, 4), 2, 3)
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
 
             assertThrows(MatrixEmptyException::class.java) {
@@ -91,7 +86,6 @@ class MutableMatrix {
             val expected =
                 mutableMatrixOf(mutableListOf(1, 2, 3, 2, 3, 4), 2, 3)
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
@@ -108,7 +102,6 @@ class MutableMatrix {
             val expected =
                 mutableMatrixOf(mutableListOf(1, 2, 3, 2, 3, 4), 2, 3)
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
@@ -129,7 +122,6 @@ class MutableMatrix {
             val expected =
                 mutableMatrixOf(mutableListOf(1, 2, 2, 3, 3, 4), 3, 2)
 
-            assertTrue(actual is MutableMatrixImpl)
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
