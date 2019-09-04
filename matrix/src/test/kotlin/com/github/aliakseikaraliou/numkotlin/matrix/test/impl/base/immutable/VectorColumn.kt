@@ -3,6 +3,7 @@ package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableColumnOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
@@ -112,6 +113,16 @@ class VectorColumn {
 
             val actual = input.transpose()
             val expected = rawOf(1, 2, 3, 4)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun toMutableVectorColumn() {
+            val input = columnOf(1, 2, 3, 4)
+
+            val actual = input.toMutableVectorColumn()
+            val expected = mutableColumnOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
         }
