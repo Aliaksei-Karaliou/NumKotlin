@@ -7,10 +7,7 @@ import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfB
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.MutableMatrixImpl
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOf
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOfColumns
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOfRaws
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -32,6 +29,25 @@ class MutableMatrix {
             assertThrows(MatrixIndexOutOfBoundsException::class.java) {
                 actual[0, 4] = 100
             }
+        }
+
+        @Test
+        fun raws() {
+            val matrix = mutableMatrixOf(
+                arrayOf(10, 2, 3),
+                arrayOf(2, 30, 4),
+                arrayOf(30, 4, 50)
+            )
+
+            val actual = matrix.raws
+            val expected =
+                listOf(
+                    mutableRawOf(10, 2, 3),
+                    mutableRawOf(2, 30, 4),
+                    mutableRawOf(30, 4, 50)
+                )
+
+            assertEquals(expected, actual)
         }
     }
 

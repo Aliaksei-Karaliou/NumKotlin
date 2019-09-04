@@ -7,15 +7,33 @@ import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.MatrixIm
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.mutable.MutableMatrix
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.mutable.MutableVectorRaw
 
-class MutableMatrixImpl<T> internal constructor(override val list: MutableList<T>, height: Int, width: Int) :
+open class MutableMatrixImpl<T> internal constructor(override val list: MutableList<T>, height: Int, width: Int) :
     MutableMatrix<T>,
     MatrixImpl<T>(list, height, width) {
 
-    override fun set(x: Int, y: Int, value: T) = when {
-        x < height && y < width -> list[matrixIndex(x, y)] = value
+    override fun set(row: Int, column: Int, value: T) = when {
+        row < height && column < width -> list[matrixIndex(row, column)] = value
         else -> throw MatrixIndexOutOfBoundsException()
     }
+
+    override val raws: List<MutableVectorRaw<T>>
+        get() {
+            val raws = mutableListOf<MutableVectorRaw<T>>()
+
+            for (i in 0 until height) {
+                val listRaw = mutableListOf<T>()
+
+                for (j in 0 until width) {
+                    listRaw.add(this[i, j])
+                }
+
+                raws.add(mutableRawOf(listRaw))
+            }
+
+            return raws
+        }
 }
 
 fun <T> mutableMatrixOf(height: Int, width: Int, creator: (Int, Int) -> T): MutableMatrixImpl<T> {
@@ -105,11 +123,10 @@ fun <T> mutableMatrixOfColumns(columns: List<VectorColumn<T>>): MutableMatrixImp
     }
 }
 
-fun <T> mutableMatrixOf(list: MutableList<T>, height: Int, width: Int) = when {
+fun <T> mutableMatrixOf(list: MutableList<T>, height: Int, width: Int): MutableMatrixImpl<T> = when {
     list.isEmpty() -> throw MatrixEmptyException()
     height * width != list.size -> throw MatrixInvalidSizeException()
-//    height == 1 && width == 1 -> singleElementOf(list[0])
-//    height == 1 -> rawOf(list)
+    height == 1 -> mutableRawOf(list)
 //    width == 1 -> columnOf(list)
     else -> MutableMatrixImpl(list, height, width)
 }

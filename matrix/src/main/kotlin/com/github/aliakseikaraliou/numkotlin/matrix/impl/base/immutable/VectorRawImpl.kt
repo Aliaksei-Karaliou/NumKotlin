@@ -6,15 +6,8 @@ import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Ve
 
 open class VectorRawImpl<T> internal constructor(override val list: List<T>) :
     VectorRaw<T>, MatrixImpl<T>(list, 1, list.size) {
-
-    override val height: Int
-        get() = super<VectorRaw>.height
-
     override val width: Int
         get() = list.size
-
-    override val raws: List<VectorRaw<T>>
-        get() = super<VectorRaw>.raws
 
     override fun get(row: Int, column: Int) = super<VectorRaw>.get(row, column)
 

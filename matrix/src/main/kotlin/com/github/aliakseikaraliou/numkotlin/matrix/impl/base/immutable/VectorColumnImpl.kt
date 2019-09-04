@@ -7,12 +7,6 @@ import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Ve
 class VectorColumnImpl<T> internal constructor(override val list: List<T>) : VectorColumn<T>,
     MatrixImpl<T>(list, list.size, 1) {
 
-    override val width: Int
-        get() = super<VectorColumn>.width
-
-    override val columns: List<VectorColumn<T>>
-        get() = super<VectorColumn>.columns
-
     override fun get(row: Int, column: Int) = super<VectorColumn>.get(row, column)
 
     override fun get(i: Int) = when {

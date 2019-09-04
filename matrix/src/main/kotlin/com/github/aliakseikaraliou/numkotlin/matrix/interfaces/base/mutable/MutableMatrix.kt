@@ -4,4 +4,6 @@ import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Ma
 
 interface MutableMatrix<T> : Matrix<T> {
     operator fun set(row: Int, column: Int, value: T)
+
+    override val raws: List<MutableVectorRaw<T>>
 }

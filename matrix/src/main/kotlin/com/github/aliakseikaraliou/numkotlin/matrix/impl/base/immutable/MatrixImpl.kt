@@ -11,6 +11,7 @@ open class MatrixImpl<T> internal constructor(
     internal open val list: List<T>,
     override val height: Int,
     override val width: Int
+
 ) : Matrix<T> {
 
     override val raws: List<VectorRaw<T>>
@@ -177,7 +178,6 @@ fun <T> matrixOfColumns(columns: List<VectorColumn<T>>): MatrixImpl<T> {
 fun <T> matrixOf(list: List<T>, height: Int, width: Int) = when {
     list.isEmpty() -> throw MatrixEmptyException()
     height * width != list.size -> throw MatrixInvalidSizeException()
-    height == 1 && width == 1 -> singleElementOf(list[0])
     height == 1 -> rawOf(list)
     width == 1 -> columnOf(list)
     else -> MatrixImpl(list, height, width)
