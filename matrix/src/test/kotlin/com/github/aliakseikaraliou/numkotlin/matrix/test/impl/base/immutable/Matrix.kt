@@ -1,9 +1,9 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.test.impl
+package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
@@ -88,7 +88,7 @@ internal class Matrix {
         }
 
         @Test
-         fun columns() {
+        fun columns() {
             val matrix = matrixOf(
                 arrayOf(10, 2, 3),
                 arrayOf(2, 30, 4),
@@ -96,6 +96,7 @@ internal class Matrix {
             )
 
             val actual = matrix.columns
+
             val expected = listOf(
                 columnOf(10, 2, 30),
                 columnOf(2, 30, 4),
@@ -110,36 +111,31 @@ internal class Matrix {
     inner class Create {
         @Test
         fun function() {
-            val actual = matrixOf(3, 4) { i, j -> i + j }
-            val expected = matrixOf(
-                listOf(0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5), 3, 4
-            )
+            val actual =
+                matrixOf(3, 4) { i, j -> i + j }
+
+            val expected =
+                matrixOf(listOf(0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 4, 5), 3, 4)
 
             assertEquals(expected, actual)
         }
 
         @Test
         fun lists() {
-            val actual = matrixOf(
-                listOf(
-                    listOf(1, 2, 3),
-                    listOf(2, 3, 4)
-                )
-            )
+            val actual =
+                matrixOf(listOf(listOf(1, 2, 3), listOf(2, 3, 4)))
+
             val expected =
                 matrixOf(listOf(1, 2, 3, 2, 3, 4), 2, 3)
 
             assertEquals(expected, actual)
 
             assertThrows(MatrixEmptyException::class.java) {
-                matrixOf(
-                    listOf<List<Int>>()
-                )
+                matrixOf(listOf<List<Int>>())
             }
+
             assertThrows(MatrixInvalidSizeException::class.java) {
-                matrixOf(
-                    listOf(listOf(1, 2, 3), listOf(2, 3))
-                )
+                matrixOf(listOf(listOf(1, 2, 3), listOf(2, 3)))
             }
         }
 
@@ -147,26 +143,21 @@ internal class Matrix {
         fun arrays() {
             val actual =
                 matrixOf(arrayOf(1, 2, 3), arrayOf(2, 3, 4))
+
             val expected =
                 matrixOf(listOf(1, 2, 3, 2, 3, 4), 2, 3)
 
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
-                matrixOf(
-                    arrayOf(1, 2, 3),
-                    arrayOf(2, 4)
-                )
+                matrixOf(arrayOf(1, 2, 3), arrayOf(2, 4))
             }
         }
 
         @Test
         fun raws() {
             val actual = matrixOfRaws(
-                listOf(
-                    rawOf(1, 2, 3),
-                    rawOf(2, 3, 4)
-                )
+                listOf(rawOf(1, 2, 3), rawOf(2, 3, 4))
             )
 
             val expected =
@@ -175,38 +166,26 @@ internal class Matrix {
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
-                matrixOfRaws(
-                    listOf(
-                        rawOf(1, 2, 3),
-                        rawOf(2, 4)
-                    )
-                )
+                matrixOfRaws(listOf(rawOf(1, 2, 3), rawOf(2, 4)))
             }
 
-            assertThrows(MatrixEmptyException::class.java) { matrixOfRaws<Int>(emptyList()) }
+            assertThrows(MatrixEmptyException::class.java) {
+                matrixOfRaws<Int>(emptyList())
+            }
         }
 
         @Test
         fun columns() {
             val actual = matrixOfColumns(
-                listOf(
-                    columnOf(1, 2, 3),
-                    columnOf(2, 3, 4)
-                )
+                listOf(columnOf(1, 2, 3), columnOf(2, 3, 4))
             )
 
-            val expected =
-                matrixOf(listOf(1, 2, 2, 3, 3, 4), 3, 2)
+            val expected = matrixOf(listOf(1, 2, 2, 3, 3, 4), 3, 2)
 
             assertEquals(expected, actual)
 
             assertThrows(MatrixInvalidSizeException::class.java) {
-                matrixOfColumns(
-                    listOf(
-                        columnOf(1, 2, 3),
-                        columnOf(2, 4)
-                    )
-                )
+                matrixOfColumns(listOf(columnOf(1, 2, 3), columnOf(2, 4)))
             }
 
             assertThrows(MatrixEmptyException::class.java) { matrixOfColumns<Int>(emptyList()) }

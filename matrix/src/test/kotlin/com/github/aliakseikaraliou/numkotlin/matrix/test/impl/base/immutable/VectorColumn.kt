@@ -1,8 +1,8 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.test.impl
+package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.columnOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
@@ -58,7 +58,11 @@ class VectorColumn {
             assertEquals(3, raw[2])
             assertEquals(4, raw[3])
 
-            assertThrows(MatrixEmptyException::class.java) { columnOf(emptyList<Int>()) }
+            assertThrows(MatrixEmptyException::class.java) {
+                columnOf(
+                    emptyList<Int>()
+                )
+            }
         }
 
         @Test

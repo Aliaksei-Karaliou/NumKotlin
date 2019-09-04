@@ -1,8 +1,8 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
+package com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable
 
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.SingleElement
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorColumn
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.SingleElement
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
 
 class SingleElementImpl<T> internal constructor(override val element: T) :
     SingleElement<T>, MatrixImpl<T>(listOf(element), 1, 1) {
@@ -20,6 +20,9 @@ class SingleElementImpl<T> internal constructor(override val element: T) :
         get() = super<SingleElement>.columns
 
     override fun get(row: Int, column: Int) = super<SingleElement>.get(row, column)
+
+    override fun toString() = "[$element]"
 }
 
-fun <T> singleElementOf(element: T) = SingleElementImpl(element)
+fun <T> singleElementOf(element: T) =
+    SingleElementImpl(element)

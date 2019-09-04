@@ -1,11 +1,11 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
+package com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.Matrix
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorColumn
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Matrix
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
 
 open class MatrixImpl<T> internal constructor(
     internal open val list: List<T>,
@@ -48,7 +48,7 @@ open class MatrixImpl<T> internal constructor(
         }
 
     override fun get(row: Int, column: Int) = when {
-        row < height && column < width -> list[row * width + column]
+        row < height && column < width -> list[matrixIndex(row, column)]
         else -> throw MatrixIndexOutOfBoundsException()
     }
 
@@ -77,6 +77,8 @@ open class MatrixImpl<T> internal constructor(
     override fun toString(): String {
         return "[${raws.joinToString(separator = ",\n")}]"
     }
+
+    protected fun matrixIndex(x: Int, y: Int) = x * width + y
 
 }
 
@@ -145,7 +147,10 @@ fun <T> matrixOfRaws(raws: List<VectorRaw<T>>): MatrixImpl<T> {
         .all { it.width == width }
 
     if (validSize) {
-        return matrixOf(height, width) { i, j -> raws[i][j] }
+        return matrixOf(
+            height,
+            width
+        ) { i, j -> raws[i][j] }
     } else {
         throw MatrixInvalidSizeException()
     }

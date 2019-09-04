@@ -1,8 +1,9 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base
+package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 
-interface SingleElement<T> : VectorRaw<T>, VectorColumn<T> {
+interface SingleElement<T> : VectorRaw<T>,
+    VectorColumn<T> {
     val element: T
 
     override val height: Int
@@ -20,7 +21,5 @@ interface SingleElement<T> : VectorRaw<T>, VectorColumn<T> {
         0 -> element
         else -> throw MatrixIndexOutOfBoundsException()
     }
-
-
 
 }

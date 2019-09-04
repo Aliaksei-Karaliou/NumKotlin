@@ -1,10 +1,10 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.impl.base
+package com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
 
-class VectorRawImpl<T> internal constructor(override val list: List<T>) :
+open class VectorRawImpl<T> internal constructor(override val list: List<T>) :
     VectorRaw<T>, MatrixImpl<T>(list, 1, list.size) {
 
     override val height: Int

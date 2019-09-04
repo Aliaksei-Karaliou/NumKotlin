@@ -1,4 +1,4 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.immutable.base
+package com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
 

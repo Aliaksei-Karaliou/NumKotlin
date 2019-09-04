@@ -1,14 +1,13 @@
-package com.github.aliakseikaraliou.numkotlin.matrix.test.impl
+package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.rawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class VectorRaw {
-
 
     @Nested
     inner class Base {
