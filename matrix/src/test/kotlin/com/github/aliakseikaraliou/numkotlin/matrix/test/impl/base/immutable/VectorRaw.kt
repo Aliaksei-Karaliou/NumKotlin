@@ -1,7 +1,9 @@
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.utils.*
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -102,6 +104,16 @@ internal class VectorRaw {
         }
 
         @Test
+        fun toList() {
+            val input = rawOf(1, 2, 3, 4)
+
+            val actual = input.toList()
+            val expected = listOf(1, 2, 3, 4)
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
         fun transpose() {
             val input = rawOf(1, 2, 3, 4)
 
@@ -117,6 +129,45 @@ internal class VectorRaw {
 
             val actual = input.toMutableVectorRaw()
             val expected = mutableRawOf(1, 2, 3, 4)
+
+            assertEquals(expected, actual)
+        }
+    }
+
+    @Nested
+    inner class Merge {
+        @Test
+        fun left() {
+            val raw1 = rawOf(
+                1, 2, 3
+            )
+
+            val raw2 = rawOf(
+                111, 201, 30
+            )
+
+            val actual = raw1 left raw2
+            val expected = rawOf(
+                111, 201, 30, 1, 2, 3
+            )
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun right() {
+            val raw1 = rawOf(
+                1, 2, 3
+            )
+
+            val raw2 = rawOf(
+                111, 201, 30
+            )
+
+            val actual = raw1 right raw2
+            val expected = rawOf(
+                1, 2, 3, 111, 201, 30
+            )
 
             assertEquals(expected, actual)
         }

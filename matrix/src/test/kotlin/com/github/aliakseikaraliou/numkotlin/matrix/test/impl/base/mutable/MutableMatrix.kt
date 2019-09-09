@@ -5,7 +5,13 @@ import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfB
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOfColumns
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableMatrixOfRaws
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.map
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.mapIndexed
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.transpose
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested

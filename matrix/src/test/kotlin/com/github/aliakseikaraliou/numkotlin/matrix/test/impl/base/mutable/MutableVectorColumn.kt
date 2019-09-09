@@ -2,7 +2,11 @@ package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.mutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.*
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableColumnOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.map
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.mapIndexed
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.utils.transpose
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Nested
@@ -110,18 +114,6 @@ class MutableVectorColumn {
 
             val actual = input.mapIndexed { i, value -> i * value }
             val expected = mutableColumnOf(0, 2, 6, 12)
-
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun forEachIndexed() {
-            val input = mutableColumnOf(1, 2, 3, 4)
-
-            var actual = 0
-            input.forEachIndexed { it, value -> actual += it * value }
-
-            val expected = 20
 
             assertEquals(expected, actual)
         }
