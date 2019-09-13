@@ -9,6 +9,7 @@ import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intMatrixOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intMatrixOfColumns
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intMatrixOfRaws
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.utils.transpose
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
@@ -194,6 +195,42 @@ internal class IntMatrix {
             }
 
             assertThrows(MatrixEmptyException::class.java) { intMatrixOfColumns(emptyList()) }
+        }
+    }
+
+    @Nested
+    inner class Utils {
+        @Test
+        fun transpose() {
+            val input = intMatrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 100)
+            )
+
+            val actual = input.transpose()
+            val expected = intMatrixOf(
+                arrayOf(1, 2),
+                arrayOf(2, 3),
+                arrayOf(3, 100)
+            )
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
+        fun mutableMatrix() {
+//            val input = matrixOf(
+//                arrayOf(1, 2, 3),
+//                arrayOf(2, 3, 100)
+//            )
+//
+//            val actual = input.toMutableMatrix()
+//            val expected = mutableMatrixOf(
+//                arrayOf(1, 2, 3),
+//                arrayOf(2, 3, 100)
+//            )
+//
+//            assertEquals(expected, actual)
         }
     }
 }

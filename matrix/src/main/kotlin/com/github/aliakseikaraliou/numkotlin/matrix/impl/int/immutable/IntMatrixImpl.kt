@@ -7,12 +7,12 @@ import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.Ve
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntMatrix
 
-class IntMatrixImpl internal constructor(list: List<Int>, height: Int, width: Int) : IntMatrix,
-    MatrixImpl<Int>(list, height, width) {
-}
+open class IntMatrixImpl internal constructor(list: List<Int>, height: Int, width: Int) :
+    IntMatrix,
+    MatrixImpl<Int>(list, height, width)
 
 fun intMatrixOf(height: Int, width: Int, creator: (Int, Int) -> Int): IntMatrixImpl {
-    val list = mutableListOf<Int>()
+    val list = ArrayList<Int>(height * width)
 
     for (i in 0 until height * width) {
         val x = i / width
@@ -24,9 +24,9 @@ fun intMatrixOf(height: Int, width: Int, creator: (Int, Int) -> Int): IntMatrixI
     return intMatrixOf(list, height, width)
 }
 
-fun intMatrixOf(lists: List<List<Int>>): MatrixImpl<Int> {
+fun intMatrixOf(lists: List<List<Int>>): IntMatrixImpl {
     if (lists.isEmpty()) {
-        return com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.matrixOf(emptyList(), 0, 0)
+        return intMatrixOf(emptyList(), 0, 0)
     }
 
     val height = lists.size
@@ -43,7 +43,7 @@ fun intMatrixOf(lists: List<List<Int>>): MatrixImpl<Int> {
 
 }
 
-fun intMatrixOf(array1: Array<Int>, vararg arrays: Array<Int>): MatrixImpl<Int> {
+fun intMatrixOf(array1: Array<Int>, vararg arrays: Array<Int>): IntMatrixImpl {
     val transformedArray = arrays
         .toMutableList()
         .apply { add(0, array1) }
@@ -61,9 +61,9 @@ fun intMatrixOf(array1: Array<Int>, vararg arrays: Array<Int>): MatrixImpl<Int> 
     }
 }
 
-fun intMatrixOfRaws(raws: List<VectorRaw<Int>>): MatrixImpl<Int> {
+fun intMatrixOfRaws(raws: List<VectorRaw<Int>>): IntMatrixImpl {
     if (raws.isEmpty()) {
-        return com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.matrixOf(emptyList(), 0, 0)
+        return intMatrixOf(emptyList(), 0, 0)
     }
 
     val height = raws.size
@@ -79,7 +79,7 @@ fun intMatrixOfRaws(raws: List<VectorRaw<Int>>): MatrixImpl<Int> {
     }
 }
 
-fun intMatrixOfColumns(columns: List<VectorColumn<Int>>): MatrixImpl<Int> {
+fun intMatrixOfColumns(columns: List<VectorColumn<Int>>): IntMatrixImpl {
     if (columns.isEmpty()) {
         return intMatrixOf(emptyList(), 0, 0)
     }
@@ -100,8 +100,8 @@ fun intMatrixOfColumns(columns: List<VectorColumn<Int>>): MatrixImpl<Int> {
 fun intMatrixOf(list: List<Int>, height: Int, width: Int) = when {
     list.isEmpty() -> throw MatrixEmptyException()
     height * width != list.size -> throw MatrixInvalidSizeException()
-//    height == 1 -> rawOf(list)
-//    width == 1 -> columnOf(list)
+    height == 1 -> intRawOf(list)
+    width == 1 -> intColumnOf(list)
     else -> IntMatrixImpl(list, height, width)
 }
 

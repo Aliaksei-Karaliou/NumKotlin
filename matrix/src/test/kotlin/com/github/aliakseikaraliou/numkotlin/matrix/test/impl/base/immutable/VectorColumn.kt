@@ -134,7 +134,7 @@ class VectorColumn {
         fun toMutableVectorColumn() {
             val input = columnOf(1, 2, 3, 4)
 
-            val actual = input.toMutableVectorColumn()
+            val actual = input.toMutable()
             val expected = mutableColumnOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
@@ -145,13 +145,9 @@ class VectorColumn {
     inner class Merge {
         @Test
         fun up() {
-            val column1 = columnOf(
-                1, 2, 3
-            )
+            val column1 = columnOf(1, 2, 3)
 
-            val column2 = columnOf(
-                111, 201, 30
-            )
+            val column2 = columnOf(111, 201, 30)
 
             val actual = column1 up column2
             val expected = columnOf(
@@ -163,13 +159,9 @@ class VectorColumn {
 
         @Test
         fun down() {
-            val column1 = columnOf(
-                1, 2, 3
-            )
+            val column1 = columnOf(1, 2, 3)
 
-            val column2 = columnOf(
-                111, 201, 30
-            )
+            val column2 = columnOf(111, 201, 30)
 
             val actual = column1 down column2
             val expected = columnOf(

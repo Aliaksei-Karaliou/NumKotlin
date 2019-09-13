@@ -38,7 +38,7 @@ fun <T, R> Matrix<T>.forEachIndexed(action: (Int, Int, T) -> R) {
 }
 
 fun <T> Matrix<T>.toList(): List<T> {
-    val list = ArrayList<T>(height + width)
+    val list = ArrayList<T>(height * width)
 
     for (i in 0 until height) {
         for (j in 0 until width) {
@@ -49,12 +49,15 @@ fun <T> Matrix<T>.toList(): List<T> {
     return list
 }
 
-fun <T> Matrix<T>.transpose() = matrixOf(
-    height = width,
-    width = height
-) { i, j -> this[j, i] }
+fun <T> Matrix<T>.transpose() =
+    matrixOf(width, height) { i, j ->
+        this[j, i]
+    }
 
-fun <T> Matrix<T>.toMutableMatrix() = mutableMatrixOf(height = height, width = width) { i, j -> this[i, j] }
+fun <T> Matrix<T>.toMutableMatrix() =
+    mutableMatrixOf(height, width) { i, j ->
+        this[i, j]
+    }
 
 //raw
 fun <T, R> VectorRaw<T>.map(transform: (T) -> R) =
@@ -111,4 +114,4 @@ fun <T> VectorColumn<T>.toList(): List<T> {
     return result
 }
 
-fun <T> VectorColumn<T>.toMutableVectorColumn() = mutableColumnOf(height) { this[it] }
+fun <T> VectorColumn<T>.toMutable() = mutableColumnOf(height) { this[it] }
