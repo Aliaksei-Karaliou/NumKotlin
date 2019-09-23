@@ -1,3 +1,5 @@
+@file:Suppress("USELESS_IS_CHECK")
+
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
@@ -5,8 +7,10 @@ import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.utils.*
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.mutable.MutableVectorRaw
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -50,6 +54,7 @@ internal class VectorRaw {
             assertEquals(10, actual[1])
             assertEquals(2, actual[2])
             assertEquals(3, actual[3])
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -58,6 +63,7 @@ internal class VectorRaw {
             val expected = rawOf(listOf(1, 2, 3))
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -66,6 +72,7 @@ internal class VectorRaw {
             val expected = rawOf(0, 1, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
     }
 
@@ -79,6 +86,7 @@ internal class VectorRaw {
             val expected = rawOf(1, 8, 27, 64)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -89,6 +97,7 @@ internal class VectorRaw {
             val expected = rawOf(0, 2, 6, 12)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -121,16 +130,18 @@ internal class VectorRaw {
             val expected = columnOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
         fun toMutableVectorRaw() {
             val input = rawOf(1, 2, 3, 4)
 
-            val actual = input.toMutableVectorRaw()
+            val actual = input.mutable()
             val expected = mutableRawOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is MutableVectorRaw<Int>)
         }
     }
 
@@ -152,6 +163,7 @@ internal class VectorRaw {
             )
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -170,6 +182,7 @@ internal class VectorRaw {
             )
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
     }
 }

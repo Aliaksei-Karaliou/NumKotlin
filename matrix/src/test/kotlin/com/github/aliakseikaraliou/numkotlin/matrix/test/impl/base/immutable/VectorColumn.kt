@@ -1,3 +1,5 @@
+@file:Suppress("USELESS_IS_CHECK")
+
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.base.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
@@ -6,8 +8,10 @@ import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.columnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.rawOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.utils.*
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableColumnOf
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.mutable.MutableVectorColumn
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -44,18 +48,18 @@ class VectorColumn {
     inner class Create {
         @Test
         fun list() {
-            val raw = columnOf(listOf(1, 2, 3, 4))
+            val expected = columnOf(1, 2, 3, 4)
+            val actual = columnOf(listOf(1, 2, 3, 4))
 
-            assertEquals(1, raw[0])
-            assertEquals(2, raw[1])
-            assertEquals(3, raw[2])
-            assertEquals(4, raw[3])
+            assertEquals(expected, actual)
 
             assertThrows(MatrixEmptyException::class.java) {
                 columnOf(
                     emptyList<Int>()
                 )
             }
+
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
@@ -64,6 +68,7 @@ class VectorColumn {
             val expected = columnOf(listOf(1, 2, 3, 4))
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
@@ -72,6 +77,7 @@ class VectorColumn {
             val expected = columnOf(0, 1, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
     }
 
@@ -85,6 +91,7 @@ class VectorColumn {
             val expected = columnOf(1, 8, 27, 64)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
@@ -95,6 +102,7 @@ class VectorColumn {
             val expected = columnOf(0, 2, 6, 12)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
@@ -117,6 +125,7 @@ class VectorColumn {
             val expected = rawOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorRaw<Int>)
         }
 
         @Test
@@ -134,10 +143,11 @@ class VectorColumn {
         fun toMutableVectorColumn() {
             val input = columnOf(1, 2, 3, 4)
 
-            val actual = input.toMutable()
+            val actual = input.mutable()
             val expected = mutableColumnOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
+            assertTrue(actual is MutableVectorColumn<Int>)
         }
     }
 
@@ -155,6 +165,7 @@ class VectorColumn {
             )
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
 
         @Test
@@ -169,6 +180,7 @@ class VectorColumn {
             )
 
             assertEquals(expected, actual)
+            assertTrue(actual is VectorColumn<Int>)
         }
     }
 }

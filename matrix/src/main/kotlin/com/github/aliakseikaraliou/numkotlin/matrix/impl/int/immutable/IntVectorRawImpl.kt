@@ -5,9 +5,6 @@ import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfB
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntVectorRaw
 
 open class IntVectorRawImpl internal constructor(override val list: List<Int>) : IntVectorRaw, IntMatrixImpl(list, 1, list.size) {
-    override val width: Int
-        get() = list.size
-
     override fun get(row: Int, column: Int) = super<IntVectorRaw>.get(row, column)
 
     override fun get(i: Int) = when {
@@ -20,7 +17,7 @@ open class IntVectorRawImpl internal constructor(override val list: List<Int>) :
     }
 }
 
-fun intRawOf(size: Int, creator: (Int) -> Int): IntVectorRaw {
+fun intRawOf(size: Int, creator: (Int) -> Int): IntVectorRawImpl {
     val list = ArrayList<Int>(size)
 
     for (i in 0 until size) {

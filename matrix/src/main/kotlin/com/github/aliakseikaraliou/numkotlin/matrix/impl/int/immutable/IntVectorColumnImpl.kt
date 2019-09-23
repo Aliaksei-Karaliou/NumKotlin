@@ -2,11 +2,11 @@ package com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixEmptyException
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.base.immutable.VectorColumn
+import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntVectorColumn
 
-class IntVectorColumnImpl internal constructor(override val list: List<Int>) : VectorColumn<Int>,
+class IntVectorColumnImpl internal constructor(override val list: List<Int>) : IntVectorColumn,
     IntMatrixImpl(list, list.size, 1) {
-    override fun get(row: Int, column: Int) = super<VectorColumn>.get(row, column)
+    override fun get(row: Int, column: Int) = super<IntVectorColumn>.get(row, column)
 
     override fun get(i: Int) = when {
         i < list.size -> list[i]

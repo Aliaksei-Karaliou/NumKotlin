@@ -295,7 +295,7 @@ internal class Matrix {
                 arrayOf(2, 3, 100)
             )
 
-            val actual = input.toMutableMatrix()
+            val actual = input.mutable()
             val expected = mutableMatrixOf(
                 arrayOf(1, 2, 3),
                 arrayOf(2, 3, 100)
@@ -308,7 +308,7 @@ internal class Matrix {
     @Nested
     inner class Merge {
         @Test
-        fun left() {
+        fun leftMatrix() {
             val matrix1 = matrixOf(
                 arrayOf(1, 2, 3),
                 arrayOf(2, 3, 4),
@@ -338,6 +338,24 @@ internal class Matrix {
             assertThrows(MatrixInvalidSizeException::class.java) {
                 matrix1 left matrix3
             }
+        }
+
+        @Test
+        fun leftItem() {
+            val matrix1 = matrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5)
+            )
+
+            val actual = matrix1 left 1
+            val expected = matrixOf(
+                arrayOf(1, 1, 2, 3),
+                arrayOf(1, 2, 3, 4),
+                arrayOf(1, 3, 4, 5)
+            )
+
+            assertEquals(expected, actual)
         }
 
         @Test
@@ -371,6 +389,24 @@ internal class Matrix {
             assertThrows(MatrixInvalidSizeException::class.java) {
                 matrix1 right matrix3
             }
+        }
+
+        @Test
+        fun rightItem() {
+            val matrix1 = matrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5)
+            )
+
+            val actual = matrix1 right 1
+            val expected = matrixOf(
+                arrayOf(1, 2, 3, 1),
+                arrayOf(2, 3, 4, 1),
+                arrayOf(3, 4, 5, 1)
+            )
+
+            assertEquals(expected, actual)
         }
 
         @Test
@@ -411,6 +447,25 @@ internal class Matrix {
         }
 
         @Test
+        fun upItem() {
+            val matrix1 = matrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5)
+            )
+
+            val actual = matrix1 up 1
+            val expected = matrixOf(
+                arrayOf(1, 1, 1),
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5)
+            )
+
+            assertEquals(expected, actual)
+        }
+
+        @Test
         fun down() {
             val matrix1 = matrixOf(
                 arrayOf(1, 2, 3),
@@ -445,6 +500,25 @@ internal class Matrix {
             assertThrows(MatrixInvalidSizeException::class.java) {
                 matrix1 down matrix3
             }
+        }
+
+        @Test
+        fun downItem() {
+            val matrix1 = matrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5)
+            )
+
+            val actual = matrix1 down 1
+            val expected = matrixOf(
+                arrayOf(1, 2, 3),
+                arrayOf(2, 3, 4),
+                arrayOf(3, 4, 5),
+                arrayOf(1, 1, 1)
+            )
+
+            assertEquals(expected, actual)
         }
     }
 }

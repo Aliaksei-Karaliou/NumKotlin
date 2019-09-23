@@ -1,14 +1,15 @@
 package com.github.aliakseikaraliou.numkotlin.matrix.test.impl.int.immutable
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixIndexOutOfBoundsException
-import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.utils.toMutableVectorRaw
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.utils.mutable
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.mutable.mutableRawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.IntVectorRawImpl
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intColumnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intRawOf
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.utils.left
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.utils.transpose
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -76,7 +77,7 @@ internal class IntVectorRaw {
 
         @Test
         fun transpose() {
-            val input = intRawOf(1, 2, 3, 4)
+            val input: IntVectorRawImpl = intRawOf(1, 2, 3, 4)
 
             val actual = input.transpose()
             val expected = intColumnOf(1, 2, 3, 4)
@@ -84,12 +85,11 @@ internal class IntVectorRaw {
             assertEquals(expected, actual)
         }
 
-        @Disabled
         @Test
         fun toMutableVectorRaw() {
             val input = intRawOf(1, 2, 3, 4)
 
-            val actual = input.toMutableVectorRaw()
+            val actual = input.mutable()
             val expected = mutableRawOf(1, 2, 3, 4)
 
             assertEquals(expected, actual)
@@ -100,14 +100,14 @@ internal class IntVectorRaw {
     inner class Merge {
         @Test
         fun left() {
-//            val raw1 = intRawOf(1, 2, 3)
-//
-//            val raw2 = intRawOf(111, 201, 30)
-//
-//            val actual = raw1 left raw2
-//            val expected = intRawOf(111, 201, 30, 1, 2, 3)
-//
-//            assertEquals(expected, actual)
+            val raw1 = intRawOf(1, 2, 3)
+
+            val raw2 = intRawOf(111, 201, 30)
+
+            val actual = raw1.left(raw2)
+            val expected = intRawOf(111, 201, 30, 1, 2, 3)
+
+            assertEquals(expected, actual)
         }
 
         @Test

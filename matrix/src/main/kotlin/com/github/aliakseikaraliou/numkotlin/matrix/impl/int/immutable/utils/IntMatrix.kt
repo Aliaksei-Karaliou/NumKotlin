@@ -1,15 +1,26 @@
 package com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.utils
 
 import com.github.aliakseikaraliou.numkotlin.matrix.exceptions.MatrixInvalidSizeException
+import com.github.aliakseikaraliou.numkotlin.matrix.impl.base.immutable.MatrixImpl
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.IntMatrixImpl
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intColumnOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intMatrixOf
 import com.github.aliakseikaraliou.numkotlin.matrix.impl.int.immutable.intRawOf
 import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntMatrix
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntVectorColumn
-import com.github.aliakseikaraliou.numkotlin.matrix.interfaces.int.IntVectorRaw
+
+fun IntMatrix.transpose() =
+    intMatrixOf(width, height) { i, j ->
+        this[j, i]
+    }
+
+//fun <T> IntMatrix.mutable() =
+//    mutableMatrixOf(height, width) { i, j ->
+//        this[i, j]
+//    }
 
 infix fun IntMatrix.left(matrix: IntMatrix) = matrix right this
+
+infix fun IntMatrix.left(item: Int): IntMatrixImpl = this left intColumnOf(height) { item }
 
 infix fun IntMatrix.right(matrix: IntMatrix): IntMatrixImpl {
     if (height != matrix.height) {
@@ -25,7 +36,11 @@ infix fun IntMatrix.right(matrix: IntMatrix): IntMatrixImpl {
     }
 }
 
+infix fun IntMatrix.right(item: Int) = this right intColumnOf(height) { item }
+
 infix fun IntMatrix.up(matrix: IntMatrix) = matrix down this
+
+infix fun IntMatrix.up(item: Int) = this up intRawOf(width) { item }
 
 infix fun IntMatrix.down(matrix: IntMatrix): IntMatrixImpl {
     if (width != matrix.width) {
@@ -41,26 +56,6 @@ infix fun IntMatrix.down(matrix: IntMatrix): IntMatrixImpl {
     }
 }
 
-//raw
+infix fun IntMatrix.down(item: Int) = this down intRawOf(width) { item }
 
-infix fun IntVectorRaw.left(raw: IntVectorRaw) = raw right this
-
-infix fun IntVectorRaw.right(raw: IntVectorRaw) = intRawOf(width + raw.width) { i ->
-    if (i < width) {
-        this[i]
-    } else {
-        raw[i - width]
-    }
-}
-
-//column
-
-infix fun IntVectorColumn.up(column: IntVectorColumn) = column down this
-
-infix fun IntVectorColumn.down(column: IntVectorColumn) = intColumnOf(height + column.height) { i ->
-    if (i < height) {
-        this[i]
-    } else {
-        column[i - height]
-    }
-}
+fun MatrixImpl<Int>.intMatrix() = intMatrixOf(height, width) { i, j -> this[i, j] }
